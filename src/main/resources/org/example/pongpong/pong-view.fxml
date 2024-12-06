@@ -2,15 +2,34 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.BorderPane?>
 
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+<Pane xmlns="http://javafx.com/javafx/17.0.12"
+        xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.pongpong.PongController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+    <BorderPane>
+        <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        </padding>
+        <top>
+            <Label> This is top </Label>
+        </top>
+        <bottom>
+            <Label> This is bottom </Label>
+        </bottom>
+        <center>
+            <Label> This is center </Label>
+        </center>
+        <left>
+            <Label> This is left </Label>
+        </left>
+        <right>
+            <Label> This is right </Label>
+        </right>
+    </BorderPane>
+</Pane>
