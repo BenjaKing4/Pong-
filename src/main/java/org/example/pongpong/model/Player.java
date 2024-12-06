@@ -27,8 +27,16 @@ abstract class Player implements Movable {
         return coordinatesX;
     }
 
+    public void setCoordinatesX(int coordinatesX) {
+        this.coordinatesX = coordinatesX;
+    }
+
     public int getCoordinatesY() {
         return coordinatesY;
+    }
+
+    public void setCoordinatesY(int coordinatesY) {
+        this.coordinatesY = coordinatesY;
     }
 
     public int getWidth() {
