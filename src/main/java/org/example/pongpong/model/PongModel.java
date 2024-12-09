@@ -16,6 +16,31 @@ public class PongModel {
 
     private StringProperty p1Score = new SimpleStringProperty("Score: 0");
     private StringProperty p2Score = new SimpleStringProperty("Score: 0");
+    private StringProperty playPauseButton = new SimpleStringProperty("Pause");
+    private GameState gameState = GameState.PAUSE;
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+
+
+    public String getPlayPauseButton() {
+        return playPauseButton.get();
+    }
+
+    public StringProperty playPauseButtonProperty() {
+        return playPauseButton;
+    }
+
+    public void setPlayPauseButton(String playPauseButton) {
+        this.playPauseButton.set(playPauseButton);
+    }
+
 
     public String getP1Score() {
         return p1Score.get();
@@ -39,5 +64,19 @@ public class PongModel {
 
     public void setP2Score(String p2Score) {
         this.p2Score.set(p2Score);
+    }
+
+    public void enableDisablePlayPauseButton(){
+        switch(playPauseButton.get()){
+            case "Pause" -> {
+                playPauseButton.set("Play");
+                setGameState(GameState.PAUSE);
+            }
+            case "Play" -> {
+                playPauseButton.set("Pause");
+                setGameState(GameState.PLAY);
+            }
+        }
+
     }
 }
