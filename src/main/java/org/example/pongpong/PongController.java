@@ -37,16 +37,6 @@ public class PongController {
 
     }
 
-    private Label topLabel; // Example: Can display Player 1's score or status
-    @FXML
-    private Label bottomLabel; // Example: Can display Player 2's score or status
-    @FXML
-    private Label centerLabel; // Example: Game status (e.g., "Player 1 Wins!")
-    @FXML
-    private Label leftLabel; // Example: Player 1's remaining lives
-    @FXML
-    private Label rightLabel; // Example: Player 2's remaining lives
-
     // Method to set the game instance
     public void setGame(Game game) {
         this.game = game;
