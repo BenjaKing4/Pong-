@@ -22,18 +22,6 @@ public class PongController {
     private PongModel model= new PongModel();
 
     @FXML
-    private Label topLabel;
-    @FXML
-    private Label bottomLabel;
-    @FXML
-    private Label centerLabel;
-    @FXML
-    private Label leftLabel;
-    @FXML
-    private Label rightLabel;
-    @FXML
-    private Button playPause;
-    @FXML
     private Label player1HealthLabel;  // Use JavaFX Label
     @FXML
     private Rectangle player1Paddle = new Rectangle();
@@ -41,7 +29,6 @@ public class PongController {
     private PongPlayer player1;
     private PongPlayer player2;
     private Game game;
-    private PongModel model = new PongModel();
 
     public PongModel getModel() {
         return model;
