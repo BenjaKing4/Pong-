@@ -16,7 +16,9 @@ public class PongController {
 
     private PongPlayer player1;
     private PongPlayer player2;
+    @FXML
     private Rectangle player1Paddle;
+    @FXML
     private Rectangle player2Paddle;
 
     private boolean movingUp1 = false;
@@ -45,6 +47,10 @@ public class PongController {
 
     private Game game;
     private PongModel model;
+
+    public PongModel getModel() {
+        return model;
+    }
 
     public PongController() {
         this.model = new PongModel();
