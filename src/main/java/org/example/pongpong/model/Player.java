@@ -1,28 +1,39 @@
 package org.example.pongpong.model;
 
-public abstract class Player implements Movable {
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
+public abstract class Player {
+    private IntegerProperty healthProperty;
+
     private int coordinatesX;
     private int coordinatesY;
     private int width;
     private int height;
-    private int health;
 
-    Player(int coordinatesX, int coordinatesY, int width, int height, int health) {
+    public Player(int coordinatesX, int coordinatesY, int width, int height, int health) {
         this.coordinatesX = coordinatesX;
         this.coordinatesY = coordinatesY;
         this.width = width;
         this.height = height;
-        this.health = health;
+        this.healthProperty = new SimpleIntegerProperty(health);  // Initialize health property
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public abstract void move(int x, int y);
+
+    public IntegerProperty getHealthProperty() {
+        return healthProperty; // Return health property
     }
 
     public int getHealth() {
-        return health;
+        return healthProperty.get();  // Get the current health value
     }
 
+    public void setHealth(int health) {
+        healthProperty.set(health);  // Set the health value
+    }
+
+    // Getter and Setter for coordinates and size
     public int getCoordinatesX() {
         return coordinatesX;
     }

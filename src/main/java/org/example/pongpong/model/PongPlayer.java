@@ -1,27 +1,31 @@
 package org.example.pongpong.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class PongPlayer extends Player {
 
     public static final int FIELD_WIDTH = 800;
     public static final int FIELD_HEIGHT = 600;
 
+    private IntegerProperty coordinatesX;
+    private IntegerProperty coordinatesY;
+
     public PongPlayer(int coordinatesX, int coordinatesY, int width, int height, int health) {
         super(coordinatesX, coordinatesY, width, height, health);
+        this.coordinatesX = new SimpleIntegerProperty(coordinatesX);
+        this.coordinatesY = new SimpleIntegerProperty(coordinatesY);
     }
 
     @Override
     public void move(int x, int y) {
-        // Ignore x-axis movement
         int newCoordinatesY = getCoordinatesY() + y;
 
-        // Ensure the player stays within the field on the y-axis
         if (newCoordinatesY < 0) newCoordinatesY = 0;
         if (newCoordinatesY + getHeight() > FIELD_HEIGHT) newCoordinatesY = FIELD_HEIGHT - getHeight();
 
-        // Update only the y-coordinate
         setCoordinatesY(newCoordinatesY);
     }
-
 
     @Override
     public String toString() {
@@ -32,5 +36,20 @@ public class PongPlayer extends Player {
                 ", height=" + getHeight() +
                 ", health=" + getHealth() +
                 '}';
+    }
+
+    // Getter for coordinatesXProperty
+    public IntegerProperty coordinatesXProperty() {
+        return new SimpleIntegerProperty(getCoordinatesX());
+    }
+
+    // Getter for coordinatesYProperty
+    public IntegerProperty coordinatesYProperty() {
+        return new SimpleIntegerProperty(getCoordinatesY());
+    }
+
+    // Getter for healthProperty
+    public IntegerProperty getHealthProperty() {
+        return new SimpleIntegerProperty(getHealth());
     }
 }

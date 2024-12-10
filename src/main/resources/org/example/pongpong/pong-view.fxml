@@ -9,7 +9,7 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <top>
-        <Label fx:id="topLabel" text="This is top" />
+        <Label fx:id="player1HealthLabel" layoutX="100" layoutY="50" text="Health: 3" />
     </top>
     <bottom>
         <HBox>
