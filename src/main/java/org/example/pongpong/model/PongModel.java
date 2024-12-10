@@ -16,7 +16,7 @@ public class PongModel {
 
     private StringProperty p1Score = new SimpleStringProperty("Score: 0");
     private StringProperty p2Score = new SimpleStringProperty("Score: 0");
-    private StringProperty playPauseButton = new SimpleStringProperty("Pause");
+    private StringProperty playPauseButton = new SimpleStringProperty("Start");
     private GameState gameState = GameState.PAUSE;
 
     public GameState getGameState() {
@@ -68,15 +68,28 @@ public class PongModel {
 
     public void enableDisablePlayPauseButton(){
         switch(playPauseButton.get()){
+            case "Start" -> {
+                playPauseButton.set("Pause");
+                setGameState(GameState.IN_PROGRESS);
+                // Replace with spawn pongball
+                System.out.println("Ball Created");
+
+            }
             case "Pause" -> {
                 playPauseButton.set("Play");
                 setGameState(GameState.PAUSE);
             }
             case "Play" -> {
                 playPauseButton.set("Pause");
-                setGameState(GameState.PLAY);
+                setGameState(GameState.IN_PROGRESS);
             }
         }
 
+    }
+
+    public void setGameRest() {
+        setGameState(GameState.RESET);
+        playPauseButton.set("Start");
+        System.out.println("Game Rest Method");
     }
 }

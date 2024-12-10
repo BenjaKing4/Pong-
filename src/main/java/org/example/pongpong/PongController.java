@@ -5,8 +5,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Rectangle;
 import org.example.pongpong.model.*;
+import javafx.scene.input.MouseEvent;
+import org.example.pongpong.model.PongModel;
+import org.example.pongpong.model.Game;
+import org.example.pongpong.model.Player;
+import org.example.pongpong.model.PongPlayer;
 
 public class PongController {
+    public Label topLabel;
+    public Label bottomLabel;
+    public Label centerLabel;
+    public Label leftLabel;
+    public Label rightLabel;
+    public Button playPause;
+    public Button restButton;
+    private PongModel model= new PongModel();
 
     @FXML
     private Label topLabel;
@@ -94,5 +107,9 @@ public class PongController {
         System.out.println("Game initialized!");
         System.out.println(game.getPlayer1Score());
         System.out.println(game.getPlayer2Score());
+    }
+
+    public void restButtonClick() {
+        model.setGameRest();
     }
 }
