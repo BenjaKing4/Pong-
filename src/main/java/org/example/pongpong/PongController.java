@@ -1,15 +1,41 @@
 package org.example.pongpong;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.example.pongpong.model.PongModel;
 import org.example.pongpong.model.Game;
 import org.example.pongpong.model.Player;
 import org.example.pongpong.model.PongPlayer;
 
 public class PongController {
+    public Label topLabel;
+    public Label bottomLabel;
+    public Label centerLabel;
+    public Label leftLabel;
+    public Label rightLabel;
+    public Button playPause;
+    private PongModel model= new PongModel();
+
     private Game game;
 
+    public PongModel getModel() {
+        return model;
+    }
+
     @FXML
+    private Label welcomeText;
+
+    @FXML
+    protected void onHelloButtonClick() {
+        welcomeText.setText("Welcome to JavaFX Application!");
+    }
+
+    public void playPauseButtonClick() {
+        model.enableDisablePlayPauseButton();
+
+    }
+
     private Label topLabel; // Example: Can display Player 1's score or status
     @FXML
     private Label bottomLabel; // Example: Can display Player 2's score or status
@@ -43,7 +69,6 @@ public class PongController {
         }
     }
 
-    @FXML
     public void initialize() {
         // Example initialization with dummy players
         Player player1 = new PongPlayer(0, 0, 50, 50, 3);
@@ -54,4 +79,5 @@ public class PongController {
         System.out.println(game.getPlayer1Score());
         System.out.println(game.getPlayer2Score());
     }
+
 }
