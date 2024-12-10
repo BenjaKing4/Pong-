@@ -12,7 +12,7 @@ public class PongPlayer extends Player {
     private IntegerProperty coordinatesY;
 
     public PongPlayer(int coordinatesX, int coordinatesY, int width, int height, int health) {
-        super(coordinatesX, coordinatesY, width, height, health);
+        super(coordinatesX, coordinatesY, width, height, health, 0);  // Default score as 0
         this.coordinatesX = new SimpleIntegerProperty(coordinatesX);
         this.coordinatesY = new SimpleIntegerProperty(coordinatesY);
     }

@@ -23,12 +23,10 @@ public abstract class Game implements GameLogic {
         return player1.getHealthProperty().get() <= 0; // Player 2 wins if Player 1's health is 0 or less
     }
 
-
     @Override
     public boolean isDraw() {
         return player1.getHealthProperty().get() <= 0 && player2.getHealthProperty().get() <= 0;
     }
-
 
     @Override
     public GameState getCurrentGameState() {
@@ -43,7 +41,6 @@ public abstract class Game implements GameLogic {
         player1.getHealthProperty().set(player1.getHealth() - player1HealthLost); // Set new health for player1
         player2.getHealthProperty().set(player2.getHealth() - player2HealthLost); // Set new health for player2
     }
-
 
     // Generalized score retrieval
     public String getPlayerScore(Player player) {
@@ -75,5 +72,35 @@ public abstract class Game implements GameLogic {
 
     public void incrementPlayer2Score() {
         player2Score++;
+    }
+
+    // Implement the missing methods from GameLogic
+    @Override
+    public boolean isWinningCondition(Player player1, Player player2) {
+        // Define the winning condition logic
+        // Example: If either player has health <= 0, the game is over and there is a winner
+        return isPlayer1Winner() || isPlayer2Winner();
+    }
+
+    @Override
+    public boolean isDrawCondition(Player player1, Player player2) {
+        // Check if both players' health are <= 0 (i.e., draw condition)
+        return isDraw();
+    }
+
+    @Override
+    public GameState checkGameState(Player player1, Player player2) {
+        // Check the game state based on the winning or draw conditions
+        if (isWinningCondition(player1, player2)) {
+            if (isPlayer1Winner()) {
+                return GameState.PLAYER1; // Player 1 wins
+            } else if (isPlayer2Winner()) {
+                return GameState.PLAYER2; // Player 2 wins
+            }
+        }
+        if (isDrawCondition(player1, player2)) {
+            return GameState.DRAW; // It's a draw
+        }
+        return GameState.WIN; // Default: Game is still in progress
     }
 }
