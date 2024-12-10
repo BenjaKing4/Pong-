@@ -38,7 +38,6 @@ public class PongController {
     public Button playPause;
     public Button restButton;
     public Button quitButton;
-    private PongModel model= new PongModel();
 
     @FXML
     private Label player1HealthLabel;  // Use JavaFX Label
