@@ -1,17 +1,33 @@
 package org.example.pongpong;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import org.example.pongpong.model.*;
-import javafx.scene.input.MouseEvent;
-import org.example.pongpong.model.PongModel;
-import org.example.pongpong.model.Game;
-import org.example.pongpong.model.Player;
-import org.example.pongpong.model.PongPlayer;
+
+import javafx.event.ActionEvent;
 
 public class PongController {
+
+    private PongPlayer player1;
+    private PongPlayer player2;
+    private Rectangle player1Paddle;
+    private Rectangle player2Paddle;
+
+    private boolean movingUp1 = false;
+    private boolean movingDown1 = false;
+    private boolean movingUp2 = false;
+    private boolean movingDown2 = false;
+    private double paddleSpeed = 5.0;
+
+    private Timeline movementTimeline;
+    private Timeline ballMovementTimeline;
+
     public Label topLabel;
     public Label bottomLabel;
     public Label centerLabel;
@@ -25,32 +41,28 @@ public class PongController {
     @FXML
     private Label player1HealthLabel;  // Use JavaFX Label
     @FXML
-    private Rectangle player1Paddle = new Rectangle();
+    private Label player2HealthLabel;
 
-    private PongPlayer player1;
-    private PongPlayer player2;
     private Game game;
+    private PongModel model;
 
-    public PongModel getModel() {
-        return model;
+    public PongController() {
+        this.model = new PongModel();
+        this.game = new PongGame(player1, player2);
     }
 
-    public void playPauseButtonClick() {
-        model.enableDisablePlayPauseButton();
-    }
-
-    // Method to set the game instance
     public void setGame(Game game) {
         this.game = game;
     }
 
-    // Update UI elements based on the current game state
     public void updateUI() {
+        // Update UI components for player scores, health, and game status
         topLabel.setText("Player 1 Score: " + game.getPlayer1Score());
         bottomLabel.setText("Player 2 Score: " + game.getPlayer2Score());
         leftLabel.setText("Player 1 Lives: " + game.getPlayer1().getHealth());
         rightLabel.setText("Player 2 Lives: " + game.getPlayer2().getHealth());
 
+        // Check for game status and display appropriate messages
         if (game.isPlayer1Winner()) {
             centerLabel.setText("Player 1 Wins!");
         } else if (game.isPlayer2Winner()) {
@@ -60,41 +72,128 @@ public class PongController {
         } else {
             centerLabel.setText("Game in Progress...");
         }
+
+        if (player2HealthLabel != null) {
+            player2HealthLabel.setText("Player 2 Health: " + game.getPlayer2().getHealth());
+        }
     }
 
+    @FXML
     public void initialize() {
-        // Initialize player1 and player2 as PongPlayer
+        // Initialize player1 and player2
         player1 = new PongPlayer(50, 100, 10, 100, 3);
-        player2 = new PongPlayer(100, 100, 10, 100, 3);
+        player2 = new PongPlayer(700, 100, 10, 100, 3);
 
-        // Initialize the game instance with the players
-        setGame(new Game(player1, player2) {
-            @Override
-            public boolean isWinningCondition(Player player1, Player player2) {
-                return false;
-            }
+        // Initialize paddles and ball
+        player1Paddle = new Rectangle(50, 100, 10, 100);  // Example size
+        player2Paddle = new Rectangle(700, 100, 10, 100); // Example size
+        ball = new Circle(15); // Ball with radius of 15
 
-            @Override
-            public boolean isDrawCondition(Player player1, Player player2) {
-                return false;
-            }
+        // Set initial ball position
+        ball.setCenterX(375);
+        ball.setCenterY(200);
 
-            @Override
-            public GameState checkGameState(Player player1, Player player2) {
-                return null;
-            }
-        });
-
-        // Bind health and paddle position
-        player1HealthLabel.textProperty().bind(player1.getHealthProperty().asString("Health: %d"));
+        // Bind paddle's movement to the player's coordinates
         player1Paddle.xProperty().bind(player1.coordinatesXProperty());
         player1Paddle.yProperty().bind(player1.coordinatesYProperty());
 
-        System.out.println(player1.coordinatesXProperty().get());
+        player2Paddle.xProperty().bind(player2.coordinatesXProperty());
+        player2Paddle.yProperty().bind(player2.coordinatesYProperty());
 
-        System.out.println("Game initialized!");
-        System.out.println(game.getPlayer1Score());
-        System.out.println(game.getPlayer2Score());
+        // Request focus on the scene
+        player1Paddle.requestFocus();  // Request focus on player1 paddle or any node
+
+        // Set up key event listeners for player 1 and player 2
+        player1Paddle.setOnMouseClicked(event -> {
+            if (player1Paddle.getScene() != null) {
+                player1Paddle.getScene().setOnKeyPressed(this::handleKeyPressPlayer1);
+                player1Paddle.getScene().setOnKeyReleased(this::handleKeyReleasePlayer1);
+            }
+        });
+
+        player2Paddle.setOnMouseClicked(event -> {
+            if (player2Paddle.getScene() != null) {
+                player2Paddle.getScene().setOnKeyPressed(this::handleKeyPressPlayer2);
+                player2Paddle.getScene().setOnKeyReleased(this::handleKeyReleasePlayer2);
+            }
+        });
+
+        // Set up a Timeline to move the paddles
+        movementTimeline = new Timeline(new KeyFrame(Duration.millis(10), this::updatePaddlePosition));
+        movementTimeline.setCycleCount(Timeline.INDEFINITE);  // Infinite loop
+        movementTimeline.play();
+    }
+
+    private void handleKeyPressPlayer1(KeyEvent event) {
+        System.out.println("Key pressed for Player 1: " + event.getCode()); // Debugging line
+        switch (event.getCode()) {
+            case W:
+                movingUp1 = true;
+                break;
+            case S:
+                movingDown1 = true;
+                break;
+        }
+    }
+
+    // Handle key release events for player 1 (W and S keys)
+    private void handleKeyReleasePlayer1(KeyEvent event) {
+        switch (event.getCode()) {
+            case W:
+                movingUp1 = false;
+                break;
+            case S:
+                movingDown1 = false;
+                break;
+        }
+    }
+
+    private void handleKeyPressPlayer2(KeyEvent event) {
+        System.out.println("Key pressed for Player 2: " + event.getCode()); // Debugging line
+        switch (event.getCode()) {
+            case UP:
+                movingUp2 = true;
+                break;
+            case DOWN:
+                movingDown2 = true;
+                break;
+        }
+    }
+
+    // Handle key release events for player 2 (Up and Down arrow keys)
+    private void handleKeyReleasePlayer2(KeyEvent event) {
+        switch (event.getCode()) {
+            case UP:
+                movingUp2 = false;
+                break;
+            case DOWN:
+                movingDown2 = false;
+                break;
+        }
+    }
+
+    // Update paddle positions for both players
+    private void updatePaddlePosition(ActionEvent event) {
+        movePaddle(player1Paddle, movingUp1, movingDown1);
+        movePaddle(player2Paddle, movingUp2, movingDown2);
+    }
+
+    private void movePaddle(Rectangle paddle, boolean movingUp, boolean movingDown) {
+        if (movingUp) {
+            paddle.setY(paddle.getY() - paddleSpeed);
+        }
+        if (movingDown) {
+            paddle.setY(paddle.getY() + paddleSpeed);
+        }
+
+        // Prevent paddles from going out of bounds (adjust as needed)
+        double minY = 0;
+        double maxY = 400; // Example maximum Y value
+        if (paddle.getY() < minY) {
+            paddle.setY(minY);
+        } else if (paddle.getY() > maxY) {
+            paddle.setY(maxY);
+        }
     }
 
     public void restButtonClick() {
@@ -103,5 +202,9 @@ public class PongController {
 
     public void quitButtonClick() {
         model.exitGame();
+    }
+
+    public void playPauseButtonClick() {
+        model.enableDisablePlayPauseButton();
     }
 }

@@ -94,6 +94,11 @@ public class PongModel {
         System.out.println("Game Rest Method");
     }
 
+    public void exitGame() {
+        System.out.println("Exit Game");
+        System.exit(0);
+    }
+}
     public void updateBallPosition (PongBall ball, int fieldWidth, int fieldHeight){
         ball.move(fieldWidth, fieldHeight);
     }

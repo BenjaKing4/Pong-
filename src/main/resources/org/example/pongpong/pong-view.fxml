@@ -3,13 +3,16 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.shape.Rectangle?>
 <BorderPane stylesheets="@css/pongpong.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pongpong.PongController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <top>
-        <Label fx:id="player1HealthLabel" layoutX="100" layoutY="50" text="Health: 3" />
+        <HBox>
+            <Label fx:id="player1HealthLabel" layoutX="100" layoutY="50" text="Health: 3" />
+            <Label fx:id="player2HealthLabel" layoutX="100" layoutY="50" text="Health: 3" />
+        </HBox>
     </top>
     <bottom>
         <HBox>
@@ -23,9 +26,9 @@
         <Label fx:id="centerLabel" text="This is center" />
     </center>
     <left>
-        <Label fx:id="leftLabel" text="This is left" />
+        <Rectangle fx:id="player1Paddle" width="10" height="100" fill="blue" />
     </left>
     <right>
-        <Label fx:id="rightLabel" text="This is right" />
+        <Rectangle fx:id="player2Paddle" width="10" height="100" fill="red" />
     </right>
 </BorderPane>
