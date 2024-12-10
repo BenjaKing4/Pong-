@@ -92,4 +92,9 @@ public class PongModel {
         playPauseButton.set("Start");
         System.out.println("Game Rest Method");
     }
+
+    public void exitGame() {
+        System.out.println("Exit Game");
+        System.exit(0);
+    }
 }
