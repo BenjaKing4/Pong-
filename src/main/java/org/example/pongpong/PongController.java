@@ -16,7 +16,9 @@ public class PongController {
 
     private PongPlayer player1;
     private PongPlayer player2;
+    @FXML
     private Rectangle player1Paddle;
+    @FXML
     private Rectangle player2Paddle;
     private Circle ball;  // The ball for the game
 
@@ -44,6 +46,10 @@ public class PongController {
 
     private Game game;
     private PongModel model;
+
+    public PongModel getModel() {
+        return model;
+    }
 
     public PongController() {
         this.model = new PongModel();
