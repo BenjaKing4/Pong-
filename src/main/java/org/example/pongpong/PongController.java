@@ -3,6 +3,7 @@ package org.example.pongpong;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Circle;
@@ -15,10 +16,9 @@ import javafx.event.ActionEvent;
 public class PongController {
 
     @FXML
-    private Rectangle player1Paddle;
+    private Rectangle player1Paddle = new Rectangle(50, 100, 10, 100);  // Example size
     @FXML
-    private Rectangle player2Paddle;
-
+    private Rectangle player2Paddle = new Rectangle(700, 100, 10, 100); // Example size
     private boolean movingUp1 = false;
     private boolean movingDown1 = false;
     private boolean movingUp2 = false;
@@ -74,16 +74,31 @@ public class PongController {
     @FXML
     public void initialize() {
        // Initialize paddles and ball
-        player1Paddle = new Rectangle(50, 100, 10, 100);  // Example size
-        player2Paddle = new Rectangle(700, 100, 10, 100); // Example size
+        gameLoop();
+    }
 
+
+    private void gameLoop() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.millis(200), e -> {
+                    if(model.getGameState()==GameState.IN_PROGRESS){
+                        moveGameLoop();
+                        System.out.println("It's looping");
+                    }
+                    PongController.this.gameLoop();
+                })
+        );
+        timeline.play();
+
+    }
+
+    private void moveGameLoop() {
         // Bind paddle's movement to the player's coordinates
-        model.game.getPlayer1().
-        player1Paddle.xProperty().bind(model.game.getPlayer1().coordinatesXProperty();
-        player1Paddle.yProperty().bind(model.game.getPlayer1().getCoordinatesY());
+        player1Paddle.xProperty().bind(model.game.getPlayer1().coordinatesXProperty());
+        player1Paddle.yProperty().bind(model.game.getPlayer1().coordinatesYProperty());
 
-        player2Paddle.xProperty().bind(player2.coordinatesXProperty());
-        player2Paddle.yProperty().bind(player2.coordinatesYProperty());
+        player2Paddle.xProperty().bind(model.game.getPlayer2().coordinatesXProperty());
+        player2Paddle.yProperty().bind(model.game.getPlayer2().coordinatesYProperty());
 
         // Request focus on the scene
         player1Paddle.requestFocus();  // Request focus on player1 paddle or any node
@@ -102,11 +117,6 @@ public class PongController {
                 player2Paddle.getScene().setOnKeyReleased(this::handleKeyReleasePlayer2);
             }
         });
-
-        // Set up a Timeline to move the paddles
-        movementTimeline = new Timeline(new KeyFrame(Duration.millis(10), this::updatePaddlePosition));
-        movementTimeline.setCycleCount(Timeline.INDEFINITE);  // Infinite loop
-        movementTimeline.play();
     }
 
     private void handleKeyPressPlayer1(KeyEvent event) {
@@ -126,6 +136,7 @@ public class PongController {
         switch (event.getCode()) {
             case W:
                 movingUp1 = false;
+                System.out.println("Key released for Player 1: " + event.getCode());
                 break;
             case S:
                 movingDown1 = false;

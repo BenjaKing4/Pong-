@@ -6,15 +6,15 @@ import javafx.beans.property.SimpleIntegerProperty;
 public abstract class Player {
     private IntegerProperty healthProperty;
     private IntegerProperty scoreProperty;  // Add a score property
-
-    private int coordinatesX;
-    private int coordinatesY;
+    private IntegerProperty coordinatesY;
+    private IntegerProperty coordinatesX;
     private int width;
     private int height;
 
+
     public Player(int coordinatesX, int coordinatesY, int width, int height, int health, int score) {
-        this.coordinatesX = coordinatesX;
-        this.coordinatesY = coordinatesY;
+        this.coordinatesX = new SimpleIntegerProperty(coordinatesX);
+        this.coordinatesY = new SimpleIntegerProperty(coordinatesY);
         this.width = width;
         this.height = height;
         this.healthProperty = new SimpleIntegerProperty(health);  // Initialize health property
@@ -55,20 +55,28 @@ public abstract class Player {
     }
 
     // Getter and Setter for coordinates and size
-    public int getCoordinatesX() {
-        return coordinatesX;
-    }
-
-    public void setCoordinatesX(int coordinatesX) {
-        this.coordinatesX = coordinatesX;
-    }
-
     public int getCoordinatesY() {
+        return coordinatesY.get();
+    }
+
+    public IntegerProperty coordinatesYProperty() {
         return coordinatesY;
     }
 
     public void setCoordinatesY(int coordinatesY) {
-        this.coordinatesY = coordinatesY;
+        this.coordinatesY.set(coordinatesY);
+    }
+
+    public int getCoordinatesX() {
+        return coordinatesX.get();
+    }
+
+    public IntegerProperty coordinatesXProperty() {
+        return coordinatesX;
+    }
+
+    public void setCoordinatesX(int coordinatesX) {
+        this.coordinatesX.set(coordinatesX);
     }
 
     public int getWidth() {

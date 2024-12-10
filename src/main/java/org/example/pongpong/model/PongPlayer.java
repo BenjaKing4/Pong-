@@ -8,51 +8,10 @@ public class PongPlayer extends Player {
     public static final int FIELD_WIDTH = 800;
     public static final int FIELD_HEIGHT = 600;
 
-    private IntegerProperty coordinatesX;
-
-    @Override
-    public int getCoordinatesY() {
-        return coordinatesY.get();
-    }
-
-    public IntegerProperty coordinatesYProperty() {
-        return coordinatesY;
-    }
-
-    public void setCoordinatesY(int coordinatesY) {
-        this.coordinatesY.set(coordinatesY);
-    }
-
-    private IntegerProperty coordinatesY;
-
-
-    @Override
-    public int getCoordinatesX() {
-        return coordinatesX.get();
-    }
-
-    public IntegerProperty coordinatesXProperty() {
-        return coordinatesX;
-    }
-
-    public void setCoordinatesX(int coordinatesX) {
-        this.coordinatesX.set(coordinatesX);
-    }
-
     public PongPlayer(int coordinatesX, int coordinatesY, int width, int height, int health) {
         super(coordinatesX, coordinatesY, width, height, health, 0);  // Default score as 0
-        this.coordinatesX = new SimpleIntegerProperty(coordinatesX);
-        this.coordinatesY = new SimpleIntegerProperty(coordinatesY);
-    }
-    // Getter for coordinatesXProperty
-    //public IntegerProperty coordinatesXProperty() {
-      //  return new SimpleIntegerProperty(getCoordinatesX());
-    //}
 
-    // Getter for coordinatesYProperty
-    // public IntegerProperty coordinatesYProperty() {
-      //  return new SimpleIntegerProperty(getCoordinatesY());
-    //}
+    }
 
     @Override
     public void move(int x, int y) {
@@ -74,7 +33,6 @@ public class PongPlayer extends Player {
                 ", health=" + getHealth() +
                 '}';
     }
-
 
 
     // Getter for healthProperty
