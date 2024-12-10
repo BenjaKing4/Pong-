@@ -3,49 +3,40 @@ package org.example.pongpong;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import org.example.pongpong.model.PongModel;
-
-import org.example.pongpong.model.Game;
-import org.example.pongpong.model.Player;
-import org.example.pongpong.model.PongPlayer;
+import javafx.scene.shape.Rectangle;
+import org.example.pongpong.model.*;
 
 public class PongController {
-    public Label topLabel;
-    public Label bottomLabel;
-    public Label centerLabel;
-    public Label leftLabel;
-    public Label rightLabel;
-    public Button playPause;
-    private PongModel model= new PongModel();
 
+    @FXML
+    private Label topLabel;
+    @FXML
+    private Label bottomLabel;
+    @FXML
+    private Label centerLabel;
+    @FXML
+    private Label leftLabel;
+    @FXML
+    private Label rightLabel;
+    @FXML
+    private Button playPause;
+    @FXML
+    private Label player1HealthLabel;  // Use JavaFX Label
+    @FXML
+    private Rectangle player1Paddle = new Rectangle();
+
+    private PongPlayer player1;
+    private PongPlayer player2;
     private Game game;
+    private PongModel model = new PongModel();
 
     public PongModel getModel() {
         return model;
     }
 
-    @FXML
-    private Label welcomeText;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
-
     public void playPauseButtonClick() {
         model.enableDisablePlayPauseButton();
-
     }
-
-    private Label topLabel; // Example: Can display Player 1's score or status
-    @FXML
-    private Label bottomLabel; // Example: Can display Player 2's score or status
-    @FXML
-    private Label centerLabel; // Example: Game status (e.g., "Player 1 Wins!")
-    @FXML
-    private Label leftLabel; // Example: Player 1's remaining lives
-    @FXML
-    private Label rightLabel; // Example: Player 2's remaining lives
 
     // Method to set the game instance
     public void setGame(Game game) {
@@ -71,14 +62,37 @@ public class PongController {
     }
 
     public void initialize() {
-        // Example initialization with dummy players
-        Player player1 = new PongPlayer(0, 0, 50, 50, 3);
-        Player player2 = new PongPlayer(0, 0, 50, 50, 3);
-        setGame(new Game(player1, player2));
+        // Initialize player1 and player2 as PongPlayer
+        player1 = new PongPlayer(50, 100, 10, 100, 3);
+        player2 = new PongPlayer(100, 100, 10, 100, 3);
+
+        // Initialize the game instance with the players
+        setGame(new Game(player1, player2) {
+            @Override
+            public boolean isWinningCondition(Player player1, Player player2) {
+                return false;
+            }
+
+            @Override
+            public boolean isDrawCondition(Player player1, Player player2) {
+                return false;
+            }
+
+            @Override
+            public GameState checkGameState(Player player1, Player player2) {
+                return null;
+            }
+        });
+
+        // Bind health and paddle position
+        player1HealthLabel.textProperty().bind(player1.getHealthProperty().asString("Health: %d"));
+        player1Paddle.xProperty().bind(player1.coordinatesXProperty());
+        player1Paddle.yProperty().bind(player1.coordinatesYProperty());
+
+        System.out.println(player1.coordinatesXProperty().get());
 
         System.out.println("Game initialized!");
         System.out.println(game.getPlayer1Score());
         System.out.println(game.getPlayer2Score());
     }
-
 }
