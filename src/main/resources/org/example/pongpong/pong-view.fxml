@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.pongpong.PongController">
+<BorderPane stylesheets="@css/pongpong.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.pongpong.PongController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <top>
-        <Label fx:id="topLabel" text="This is top"/>
+        <Label fx:id="topLabel" text="This is top" />
     </top>
     <bottom>
-        <Label fx:id="bottomLabel" text="This is bottom"/>
+        <Label fx:id="bottomLabel" text="This is bottom" />
+        <Button id="cssPlayPause" fx:id="playPause" onMouseClicked="#playPauseButtonClick" text="${controller.model.playPauseButton}" />
     </bottom>
     <center>
-        <Label fx:id="centerLabel" text="This is center"/>
+        <Label fx:id="centerLabel" text="This is center" />
     </center>
     <left>
-        <Label fx:id="leftLabel" text="This is left"/>
+        <Label fx:id="leftLabel" text="This is left" />
     </left>
     <right>
-        <Label fx:id="rightLabel" text="This is right"/>
+        <Label fx:id="rightLabel" text="This is right" />
     </right>
 </BorderPane>

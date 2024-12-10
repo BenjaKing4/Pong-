@@ -1,7 +1,9 @@
 package org.example.pongpong;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.example.pongpong.model.PongModel;
 
 public class PongController {
     public Label topLabel;
@@ -9,6 +11,12 @@ public class PongController {
     public Label centerLabel;
     public Label leftLabel;
     public Label rightLabel;
+    public Button playPause;
+    private PongModel model= new PongModel();
+
+    public PongModel getModel() {
+        return model;
+    }
 
     @FXML
     private Label welcomeText;
@@ -17,4 +25,10 @@ public class PongController {
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
+
+    public void playPauseButtonClick() {
+        model.enableDisablePlayPauseButton();
+
+    }
+
 }
