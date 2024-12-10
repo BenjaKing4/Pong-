@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.example.pongpong.model.PongModel;
+
 import org.example.pongpong.model.Game;
 import org.example.pongpong.model.Player;
 import org.example.pongpong.model.PongPlayer;
