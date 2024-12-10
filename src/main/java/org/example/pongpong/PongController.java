@@ -14,8 +14,6 @@ import javafx.event.ActionEvent;
 
 public class PongController {
 
-    private PongPlayer player1;
-    private PongPlayer player2;
     @FXML
     private Rectangle player1Paddle;
     @FXML
@@ -44,63 +42,45 @@ public class PongController {
     @FXML
     private Label player2HealthLabel;
 
-    private Game game;
-    private PongModel model;
+    private PongModel model = new PongModel();
 
     public PongModel getModel() {
         return model;
     }
 
-    public PongController() {
-        this.model = new PongModel();
-        this.game = new PongGame(player1, player2);
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
     public void updateUI() {
         // Update UI components for player scores, health, and game status
-        topLabel.setText("Player 1 Score: " + game.getPlayer1Score());
-        bottomLabel.setText("Player 2 Score: " + game.getPlayer2Score());
-        leftLabel.setText("Player 1 Lives: " + game.getPlayer1().getHealth());
-        rightLabel.setText("Player 2 Lives: " + game.getPlayer2().getHealth());
+        topLabel.setText("Player 1 Score: " + model.game.getPlayer1Score());
+        bottomLabel.setText("Player 2 Score: " + model.game.getPlayer2Score());
+        leftLabel.setText("Player 1 Lives: " + model.game.getPlayer1().getHealth());
+        rightLabel.setText("Player 2 Lives: " + model.game.getPlayer2().getHealth());
 
         // Check for game status and display appropriate messages
-        if (game.isPlayer1Winner()) {
+        if (model.game.isPlayer1Winner()) {
             centerLabel.setText("Player 1 Wins!");
-        } else if (game.isPlayer2Winner()) {
+        } else if (model.game.isPlayer2Winner()) {
             centerLabel.setText("Player 2 Wins!");
-        } else if (game.isDraw()) {
+        } else if (model.game.isDraw()) {
             centerLabel.setText("It's a Draw!");
         } else {
             centerLabel.setText("Game in Progress...");
         }
 
         if (player2HealthLabel != null) {
-            player2HealthLabel.setText("Player 2 Health: " + game.getPlayer2().getHealth());
+            player2HealthLabel.setText("Player 2 Health: " + model.game.getPlayer2().getHealth());
         }
     }
 
     @FXML
     public void initialize() {
-        // Initialize player1 and player2
-        player1 = new PongPlayer(50, 100, 10, 100, 3);
-        player2 = new PongPlayer(700, 100, 10, 100, 3);
-
-        // Initialize paddles and ball
+       // Initialize paddles and ball
         player1Paddle = new Rectangle(50, 100, 10, 100);  // Example size
         player2Paddle = new Rectangle(700, 100, 10, 100); // Example size
-        ball = new Circle(15); // Ball with radius of 15
-
-        // Set initial ball position
-        ball.setCenterX(375);
-        ball.setCenterY(200);
 
         // Bind paddle's movement to the player's coordinates
-        player1Paddle.xProperty().bind(player1.coordinatesXProperty());
-        player1Paddle.yProperty().bind(player1.coordinatesYProperty());
+        model.game.getPlayer1().
+        player1Paddle.xProperty().bind(model.game.getPlayer1().coordinatesXProperty();
+        player1Paddle.yProperty().bind(model.game.getPlayer1().getCoordinatesY());
 
         player2Paddle.xProperty().bind(player2.coordinatesXProperty());
         player2Paddle.yProperty().bind(player2.coordinatesYProperty());

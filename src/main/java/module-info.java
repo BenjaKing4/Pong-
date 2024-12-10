@@ -15,4 +15,5 @@ module org.example.pongpong {
     opens org.example.pongpong to javafx.fxml;
     exports org.example.pongpong;
     exports org.example.pongpong.model;
+    opens org.example.pongpong.model to javafx.fxml;
 }

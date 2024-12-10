@@ -1,13 +1,9 @@
 package org.example.pongpong.model;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
+
+import java.security.PublicKey;
 
 public class PongModel {
 
@@ -19,6 +15,16 @@ public class PongModel {
     private StringProperty p2Score = new SimpleStringProperty("Score: 0");
     private StringProperty playPauseButton = new SimpleStringProperty("Start");
     private GameState gameState = GameState.PAUSE;
+    private Player player1;
+    private Player player2;
+    public PongGame game;
+
+    public PongModel() {
+        player1 = new PongPlayer(50, 100, 10, 100, 3);
+        player2 = new PongPlayer(700, 100, 10, 100, 3);
+        this.game = new PongGame(player1, player2);
+    }
+
 
     public GameState getGameState() {
         return gameState;
@@ -27,8 +33,6 @@ public class PongModel {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
-
-
 
     public String getPlayPauseButton() {
         return playPauseButton.get();
@@ -67,8 +71,8 @@ public class PongModel {
         this.p2Score.set(p2Score);
     }
 
-    public void enableDisablePlayPauseButton(){
-        switch(playPauseButton.get()){
+    public void enableDisablePlayPauseButton() {
+        switch (playPauseButton.get()) {
             case "Start" -> {
                 playPauseButton.set("Pause");
                 setGameState(GameState.IN_PROGRESS);
@@ -97,13 +101,5 @@ public class PongModel {
     public void exitGame() {
         System.out.println("Exit Game");
         System.exit(0);
-    }
-}
-    public void updateBallPosition (PongBall ball, int fieldWidth, int fieldHeight){
-        ball.move(fieldWidth, fieldHeight);
-    }
-
-    public void spawnBall() {
-        pongBall = new PongBall("Red", 0, 0, 10, 5, 5);//Exempel
     }
 }
