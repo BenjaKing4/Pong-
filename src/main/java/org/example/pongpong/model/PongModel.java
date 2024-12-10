@@ -86,4 +86,10 @@ public class PongModel {
         }
 
     }
+
+    public void setGameRest() {
+        setGameState(GameState.RESET);
+        playPauseButton.set("Start");
+        System.out.println("Game Rest Method");
+    }
 }

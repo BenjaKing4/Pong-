@@ -3,6 +3,7 @@ package org.example.pongpong;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import org.example.pongpong.model.PongModel;
 
 import org.example.pongpong.model.Game;
@@ -16,6 +17,7 @@ public class PongController {
     public Label leftLabel;
     public Label rightLabel;
     public Button playPause;
+    public Button restButton;
     private PongModel model= new PongModel();
 
     private Game game;
@@ -71,4 +73,7 @@ public class PongController {
         System.out.println(game.getPlayer2Score());
     }
 
+    public void restButtonClick() {
+        model.setGameRest();
+    }
 }

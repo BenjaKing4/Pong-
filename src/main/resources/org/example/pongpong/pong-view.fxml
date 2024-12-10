@@ -12,8 +12,11 @@
         <Label fx:id="topLabel" text="This is top" />
     </top>
     <bottom>
+        <HBox>
         <Label fx:id="bottomLabel" text="This is bottom" />
         <Button id="cssPlayPause" fx:id="playPause" onMouseClicked="#playPauseButtonClick" text="${controller.model.playPauseButton}" />
+        <Button id="cssRestButton" fx:id="restButton" onMouseClicked="#restButtonClick" text="Rest Game" />
+        </HBox>
     </bottom>
     <center>
         <Label fx:id="centerLabel" text="This is center" />
