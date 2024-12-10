@@ -1,6 +1,6 @@
 package org.example.pongpong.model;
 
-abstract class Player implements Movable {
+public abstract class Player implements Movable {
     private int coordinatesX;
     private int coordinatesY;
     private int width;

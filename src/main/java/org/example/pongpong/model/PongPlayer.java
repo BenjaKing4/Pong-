@@ -5,7 +5,7 @@ public class PongPlayer extends Player {
     public static final int FIELD_WIDTH = 800;
     public static final int FIELD_HEIGHT = 600;
 
-    PongPlayer(int coordinatesX, int coordinatesY, int width, int height, int health) {
+    public PongPlayer(int coordinatesX, int coordinatesY, int width, int height, int health) {
         super(coordinatesX, coordinatesY, width, height, health);
     }
 
