@@ -13,6 +13,7 @@ public class PongModel {
 
     private int scoreP1 = 0;
     private int scoreP2 = 0;
+    private PongBall pongBall;
 
     private StringProperty p1Score = new SimpleStringProperty("Score: 0");
     private StringProperty p2Score = new SimpleStringProperty("Score: 0");
@@ -96,5 +97,13 @@ public class PongModel {
     public void exitGame() {
         System.out.println("Exit Game");
         System.exit(0);
+    }
+}
+    public void updateBallPosition (PongBall ball, int fieldWidth, int fieldHeight){
+        ball.move(fieldWidth, fieldHeight);
+    }
+
+    public void spawnBall() {
+        pongBall = new PongBall("Red", 0, 0, 10, 5, 5);//Exempel
     }
 }

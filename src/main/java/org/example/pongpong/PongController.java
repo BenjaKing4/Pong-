@@ -18,7 +18,6 @@ public class PongController {
     private PongPlayer player2;
     private Rectangle player1Paddle;
     private Rectangle player2Paddle;
-    private Circle ball;  // The ball for the game
 
     private boolean movingUp1 = false;
     private boolean movingDown1 = false;
@@ -29,16 +28,18 @@ public class PongController {
     private Timeline movementTimeline;
     private Timeline ballMovementTimeline;
 
+    public Label topLabel;
+    public Label bottomLabel;
+    public Label centerLabel;
+    public Label leftLabel;
+    public Label rightLabel;
+    public Button playPause;
+    public Button restButton;
+    public Button quitButton;
+    private PongModel model= new PongModel();
+
     @FXML
-    private Label topLabel;
-    @FXML
-    private Label bottomLabel;
-    @FXML
-    private Label leftLabel;
-    @FXML
-    private Label rightLabel;
-    @FXML
-    private Label centerLabel;
+    private Label player1HealthLabel;  // Use JavaFX Label
     @FXML
     private Label player2HealthLabel;
 
