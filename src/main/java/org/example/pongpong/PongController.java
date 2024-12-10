@@ -19,6 +19,7 @@ public class PongController {
     public Label rightLabel;
     public Button playPause;
     public Button restButton;
+    public Button quitButton;
     private PongModel model= new PongModel();
 
     @FXML
@@ -98,5 +99,9 @@ public class PongController {
 
     public void restButtonClick() {
         model.setGameRest();
+    }
+
+    public void quitButtonClick() {
+        model.exitGame();
     }
 }

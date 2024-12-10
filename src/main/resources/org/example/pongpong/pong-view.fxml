@@ -16,6 +16,7 @@
         <Label fx:id="bottomLabel" text="This is bottom" />
         <Button id="cssPlayPause" fx:id="playPause" onMouseClicked="#playPauseButtonClick" text="${controller.model.playPauseButton}" />
         <Button id="cssRestButton" fx:id="restButton" onMouseClicked="#restButtonClick" text="Rest Game" />
+        <Button id="cssQuitButton" fx:id="quitButton" onMouseClicked="#quitButtonClick" text="Exit Game" />
         </HBox>
     </bottom>
     <center>
